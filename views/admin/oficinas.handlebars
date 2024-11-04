@@ -1,0 +1,12 @@
+<h2>Gestión de Oficinas</h2>
+<form action="/admin/oficinas/crear" method="POST">
+    <label for="nombre_oficina">Nombre de la Oficina:</label>
+    <input type="text" id="nombre_oficina" name="nombre_oficina" required>
+    <label for="id_tipo_reclamo">Tipo de Reclamo Atendido:</label>
+    <select id="id_tipo_reclamo" name="id_tipo_reclamo" required>
+        {{#each tiposReclamo}}
+        <option value="{{this.id_tipo_reclamo}}">{{this.descripcion}}</option>
+        {{/each}}
+    </select>
+    <button type="submit">Crear Oficina</button>
+</form>

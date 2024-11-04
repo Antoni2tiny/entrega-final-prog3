@@ -1,0 +1,30 @@
+<h2>Reclamos Asignados a la Oficina</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Asunto</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Fecha de Creación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each reclamos}}
+        <tr>
+            <td>{{this.asunto}}</td>
+            <td>{{this.descripcion}}</td>
+            <td>{{this.estado}}</td>
+            <td>{{this.fecha_creado}}</td>
+            <td>
+                {{#ifCond this.estado '==' 'en_proceso'}}
+                <form action="/empleado/reclamos/finalizar/{{this.id_reclamo}}" method="POST" style="display:inline;">
+                    <button type="submit">Finalizar</button>
+                </form>
+                {{/ifCond}}
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

@@ -1,0 +1,30 @@
+<h2>Mis Reclamos</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Asunto</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Fecha de Creación</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each reclamos}}
+        <tr>
+            <td>{{this.asunto}}</td>
+            <td>{{this.descripcion}}</td>
+            <td>{{this.estado}}</td>
+            <td>{{this.fecha_creado}}</td>
+            <td>
+                {{#ifCond this.estado '==' 'creado'}}
+                <form action="/reclamos/cancelar/{{this.id_reclamo}}" method="POST" style="display:inline;">
+                    <button type="submit">Cancelar</button>
+                </form>
+                {{/ifCond}}
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

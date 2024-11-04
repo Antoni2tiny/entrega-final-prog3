@@ -1,0 +1,30 @@
+<h2>Gestión de Reclamos</h2>
+
+<table>
+    <thead>
+        <tr>
+            <th>Asunto</th>
+            <th>Descripción</th>
+            <th>Estado</th>
+            <th>Cliente</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each reclamos}}
+        <tr>
+            <td>{{this.asunto}}</td>
+            <td>{{this.descripcion}}</td>
+            <td>{{this.estado}}</td>
+            <td>{{this.cliente.nombre}} {{this.cliente.apellido}}</td>
+            <td>
+                {{#ifCond this.estado '==' 'en_proceso'}}
+                <form action="/admin/reclamos/finalizar/{{this.id_reclamo}}" method="POST" style="display:inline;">
+                    <button type="submit">Finalizar</button>
+                </form>
+                {{/ifCond}}
+            </td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>

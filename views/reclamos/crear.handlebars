@@ -1,0 +1,82 @@
+<h2>Crear un Reclamo</h2>
+<form action="/reclamos/crear" method="POST" id="reclamoForm">
+    <div>
+        <label for="asunto">Asunto del Reclamo:</label>
+        <input type="text" id="asunto" name="asunto" required placeholder="Ej. Problema con el servicio">
+        <small>Sugiere brevemente el motivo de su reclamo (Ej. 'Retraso en la entrega')</small>
+    </div>
+
+    <div>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" name="descripcion" required placeholder="Explique el problema con más detalles."></textarea>
+        <small>Proporcione detalles del problema para ayudar en su solución.</small>
+    </div>
+
+    <div>
+        <label for="id_tipo_reclamo">Tipo de Reclamo:</label>
+        <select id="id_tipo_reclamo" name="id_tipo_reclamo" required>
+            <option value="">Seleccione un tipo</option>
+            {{#each tiposReclamo}}
+                <option value="{{this.id_tipo_reclamo}}">{{this.descripcion}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <div>
+        <label for="id_oficina">Oficina a la que va dirigido:</label>
+        <select id="id_oficina" name="id_oficina" required>
+            <option value="">Seleccione una oficina</option>
+            {{#each oficinas}}
+                <option value="{{this.id_oficina}}">{{this.nombre}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <button type="submit">Crear Reclamo</button>
+</form>
+
+<style>
+small {
+    display: block;
+    color: gray;
+    font-size: 0.85em;
+    margin-top: 5px;
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        // Cargar tipos de reclamos al cargar la página
+        const responseTipos = await fetch('/api/tipos-reclamo');
+        const tiposReclamo = await responseTipos.json();
+
+        const selectTipoReclamo = document.getElementById('id_tipo_reclamo');
+        tiposReclamo.forEach(tipo => {
+            const option = document.createElement('option');
+            option.value = tipo.id_tipo_reclamo;
+            option.textContent = tipo.descripcion;
+            selectTipoReclamo.appendChild(option);
+        });
+
+        // Cargar oficinas cuando se seleccione un tipo de reclamo
+        selectTipoReclamo.addEventListener('change', async function() {
+            const tipoReclamoId = this.value;
+            const responseOficinas = await fetch(`/api/oficinas?id_tipo_reclamo=${tipoReclamoId}`);
+            const oficinas = await responseOficinas.json();
+
+            const selectOficina = document.getElementById('id_oficina');
+            selectOficina.innerHTML = '<option value="">Seleccione una oficina</option>'; // Resetear las opciones
+
+            oficinas.forEach(oficina => {
+                const option = document.createElement('option');
+                option.value = oficina.id_oficina;
+                option.textContent = oficina.nombre;
+                selectOficina.appendChild(option);
+            });
+        });
+    } catch (error) {
+        console.error('Error al cargar los tipos de reclamo u oficinas:', error);
+    }
+});
+</script>

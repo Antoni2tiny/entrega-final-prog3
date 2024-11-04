@@ -1,0 +1,36 @@
+<nav>
+    <a href="/">Inicio</a>
+    <a href="/info">Información Institucional</a>
+    <a href="/contacto">Contacto</a>
+
+    {{#if isLogged}}
+        <a href="/auth/logout">Cerrar Sesión</a>
+        
+        {{#if isAdmin}}
+            <!-- Opciones exclusivas para el administrador -->
+            <div class="dropdown">
+                <a href="#" class="admin dropbtn">Administración</a>
+                <div class="dropdown-content">
+                    <a href="/admin/oficinas">Gestión de Oficinas</a>
+                    <a href="/admin/reclamos">Estado de Reclamos</a>
+                    <a href="/admin/informes">Generar Informe</a>
+                </div>
+            </div>
+        {{/if}}
+        
+        {{#if isEmpleado}}
+            <!-- Opciones exclusivas para empleados -->
+            <a href="/empleado/reclamos">Reclamos de Oficina</a>
+        {{/if}}
+
+        {{#if isCliente}}
+            <!-- Opciones exclusivas para clientes -->
+            <a href="/reclamos">Mis Reclamos</a>
+            <a href="/reclamos/crear">Crear Reclamo</a>
+        {{/if}}
+    {{else}}
+        <!-- Opciones visibles solo para usuarios no autenticados -->
+        <a href="/auth/login">Iniciar Sesión</a>
+        <a href="/auth/register">Crear Usuario</a>
+    {{/if}}
+</nav>

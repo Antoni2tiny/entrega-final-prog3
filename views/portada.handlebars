@@ -1,0 +1,16 @@
+<h2>Bienvenido a Concesionaria Lo del NONO</h2>
+<p>Con más de 30 años de experiencia en el mercado automotriz, ofrecemos vehículos de calidad y un servicio post-venta excelente.</p>
+
+<p>¿Eres un cliente nuevo o ya tienes una cuenta? Puedes registrarte o iniciar sesión para acceder a la gestión de reclamos y mucho más.</p>
+
+<div class="btn-group">
+    <a href="/auth/register" class="btn btn-primary">Crear Usuario</a>
+    <a href="/auth/login" class="btn btn-secondary">Iniciar Sesión</a>
+    <a href="/info" class="btn btn-info">Conócenos Más</a>
+</div>
+
+{{#if isAdmin}}
+    <div class="admin-welcome">
+        <p><strong>Acceso para Administradores:</strong> Haz clic en <a href="/admin/oficinas">Gestión de Oficinas</a> para administrar oficinas, usuarios y reclamos.</p>
+    </div>
+{{/if}}
